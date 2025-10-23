@@ -4,13 +4,24 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #fdfdfd;
+  background: 
+    linear-gradient(
+      rgba(255, 182, 193, 0.4)
+      rgba(255, 215, 0, 0.4)
+     /* soft gold overlay */
+    ),
+    url('https://images.unsplash.com/photo-1613470209413-bbdb7f3fdd86?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
+  background-size: cover;
   color: #333;
   line-height: 1.6;
 }
+
+
+
+
+
 
 .app {
   display: flex;
