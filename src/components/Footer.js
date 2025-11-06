@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="site-footer" role="contentinfo">
       <div className="footer-inner">
         <div className="footer-brand">
-          <div className="logo">GlowBeauty</div>
+          <div className="logo">Glowify~Her Luxe</div>
           <p className="tagline">Clean, cruelty-free cosmetics for every glow.</p>
         </div>
 
@@ -21,7 +21,7 @@ const Footer = () => {
 
         <div className="footer-contact">
           <a href="mailto:support@glowbeauty.com">support@glowbeauty.com</a>
-          <a href="tel:+18001234567">+1 (800) 123-4567</a>
+          <a href="tel:+254 748963356">+254 748963356</a>
 
           <div className="social" aria-label="Social links">
             <a

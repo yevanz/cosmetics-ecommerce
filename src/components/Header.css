@@ -1,61 +1,83 @@
-/* Feminine, soft gradient header styles for GlowBeauty */
+/* === Glowify Header Styling === */
 
 .gb-header {
-  background: linear-gradient(90deg, #ffd6e8 0%, #fff0d9 48%, #e9dbff 100%);
-  padding: 14px 0;
-  box-shadow: 0 6px 20px rgba(16,24,40,0.06);
   position: sticky;
   top: 0;
   z-index: 999;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(10px);
+  background: hsla(44, 95%, 50%, 0.986);
+  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.06);
+  padding: 10px 0;
+  transition: background 0.3s ease-in-out;
 }
 
+/* Container */
 .gb-container {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
-  gap: 16px;
   justify-content: space-between;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
+/* Brand Section */
 .gb-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-decoration: none;
-  color: #B76E79;
+  color: #b76e79;
+  transition: transform 0.3s ease;
 }
 
+.gb-brand:hover {
+  transform: scale(1.03);
+}
+
+/* Logo Box — Enlarged GIF logo */
 .gb-logo-box {
-  background: rgba(255,255,255,0.48);
-  border-radius: 12px;
-  padding: 8px 12px;
+  background: transparent;
+  border-radius: 14px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  justify-content: center;
+  overflow: hidden;
 }
 
+.gb-logo-box img {
+  width: 160px;            /* 🔹 Increased from 45px */
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;     /* Keeps GIF proportions */
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+}
+
+/* Brand Name */
 .gb-brand-name {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 800;
   color: #4d233d;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #b76e79, #4d233d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Search Section */
 .gb-search {
   flex: 1;
   max-width: 560px;
-  min-width: 200px;
+  min-width: 220px;
   display: flex;
   align-items: center;
-  background: rgba(255,255,255,0.96);
-  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 8px 14px;
   border-radius: 999px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   gap: 8px;
 }
 
@@ -73,10 +95,11 @@
   background: transparent;
 }
 
+/* Navigation Links */
 .gb-nav {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .gb-link {
@@ -85,27 +108,41 @@
   font-weight: 600;
   padding: 8px 12px;
   border-radius: 10px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
+.gb-link:hover {
+  background: #f9dbe5;
+  color: #b76e79;
+}
+
+/* Icon Button */
 .gb-icon-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 10px;
+  padding: 8px 12px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.12);
+  background: #b76e79;
   color: #fff;
   text-decoration: none;
   font-weight: 600;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.gb-icon-btn:hover {
+  background: #a05c69;
+  transform: translateY(-2px);
 }
 
 .gb-icon-text {
   font-size: 14px;
 }
 
+/* Count Badge */
 .gb-count {
   background: #fff;
-  color: #F7E7CE;
+  color: #b76e79;
   min-width: 20px;
   height: 20px;
   border-radius: 999px;
@@ -117,15 +154,16 @@
   margin-left: 6px;
 }
 
-/* Mobile behavior */
+/* Mobile Search Button */
 .gb-mobile-search-btn {
   display: none;
   background: transparent;
   border: none;
   color: #4d233d;
+  cursor: pointer;
 }
 
-/* Mobile overlay */
+/* Mobile Search Overlay */
 .gb-mobile-search-overlay {
   position: fixed;
   left: 12px;
@@ -136,8 +174,8 @@
   gap: 8px;
   padding: 8px 12px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.98);
-  box-shadow: 0 10px 40px rgba(16,24,40,0.12);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 10px 40px rgba(16, 24, 40, 0.12);
   z-index: 2000;
 }
 
@@ -157,7 +195,7 @@
   cursor: pointer;
 }
 
-/* Responsive */
+/* === Responsive === */
 @media (max-width: 760px) {
   .gb-search {
     display: none;
@@ -169,8 +207,15 @@
     gap: 8px;
     padding: 8px;
     border-radius: 8px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.9);
     color: #4d233d;
-    cursor: pointer;
+  }
+
+  .gb-logo-box img {
+    width: 120px;  /* Adjust logo size for smaller screens */
+  }
+
+  .gb-brand-name {
+    font-size: 20px;
   }
 }

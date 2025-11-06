@@ -1,9 +1,9 @@
 :root{
   --footer-bg-1: #0f1724;
   --footer-bg-2: #10243a;
-  --accent: #ff6b8a;
+  --accent: hwb(347 16% 4%);
   --text: #e6eef8;
-  --muted: #9fb0c4;
+  --muted: hsl(212, 76%, 55%);
 }
 
 .site-footer{
