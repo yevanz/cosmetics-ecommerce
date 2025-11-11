@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
-import logo from '../assets/back.png'; // ✅ Keep your existing logo
+import logo from '../assets/back.png'; 
 
 const Homepage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);

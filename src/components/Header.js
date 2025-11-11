@@ -64,6 +64,7 @@ const Header = ({ cartCount = 0 }) => {
           <Link to="/sale" className="gb-link">Sale</Link>
           <Link to="/favorites" className="gb-link">Favorites</Link>
 
+          {/* Account */}
           <Link to="/account" className="gb-icon-btn" aria-label="Account">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 
@@ -72,6 +73,7 @@ const Header = ({ cartCount = 0 }) => {
             <span className="gb-icon-text">Account</span>
           </Link>
 
+          {/* Cart */}
           <Link to="/cart" className="gb-icon-btn" aria-label={`Cart with ${cartCount} items`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.3 2.4C8.5 18.4 9.5 20 11 20h8v-2h-7.2c-.1 0-.3-.1-.3-.2l.1-.2L14 16h3.5c.7 0 1.4-.4 1.8-1l2.6-8H6.2" fill="#fff"/>
