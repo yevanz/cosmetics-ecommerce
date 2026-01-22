@@ -51,13 +51,13 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/shipping-returns" element={<ShippingReturns />} />
               <Route path="/account" element={<AccountAuth />} />
-              <Route path="/products" elements={<Products />} />
               <Route path='admin' element={<AdminPanel/>} /> 
             </Routes>
           </main>
           <Footer />
         </div>
       )}
+
     </Router>
   );
 }

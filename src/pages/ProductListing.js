@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './ProductListing.css';
 
 const ProductListing = () => {
   const [products, setProducts] = useState([]);
@@ -16,20 +17,20 @@ const ProductListing = () => {
   const filteredProducts = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div>
+    <div className="product-listing-container">
       <input
         type="text"
+        className="search-bar"
         placeholder="Search products..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{ width: '100%', padding: '10px', marginBottom: '20px' }}
       />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+      <div className="product-grid">
         {filteredProducts.map(product => (
-          <div key={product.id} style={{ border: '1px solid #ddd', padding: '10px' }}>
+          <div key={product.id} className="product-card">
             <h3>{product.name}</h3>
             <p>${product.price}</p>
-            <Link to={`/product/${product.id}`} className="btn">View</Link>
+            <Link to={`/product/${product.id}`} className="view-btn">View</Link>
           </div>
         ))}
       </div>

@@ -201,14 +201,62 @@
     display: none;
   }
 
-  .gb-mobile-search-btn {
+  /* Hamburger Menu Button */
+  .gb-menu-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.9);
+    justify-content: center;
+    background: transparent;
+    border: none;
     color: #4d233d;
+    cursor: pointer;
+    padding: 8px;
+  }
+  
+  .gb-menu-btn:hover {
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+  }
+
+  /* Nav Drawer (Mobile) */
+  .gb-nav {
+    position: fixed;
+    top: 0;
+    left: -100%; /* Hidden by default */
+    width: 250px;
+    height: 100vh;
+    background: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 60px 20px;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .gb-nav.open {
+    left: 0; /* Slide in */
+  }
+
+  /* Close Button inside Drawer */
+  .gb-menu-close {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #4d233d;
+    cursor: pointer;
+  }
+
+  .gb-nav .gb-link,
+  .gb-nav .gb-icon-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    justify-content: flex-start;
   }
 
   .gb-logo-box img {
@@ -219,3 +267,9 @@
     font-size: 20px;
   }
 }
+
+/* Hide Close button on Desktop */
+.gb-menu-close {
+  display: none;
+}
+

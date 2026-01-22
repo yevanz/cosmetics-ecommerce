@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Rose Lip Balm', price: 15, quantity: 1 },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
+  // const [cartItems, setCartItems] = useState([
+  //   { id: 1, name: 'Rose Lip Balm', price: 15, quantity: 1 },
+  // ]);
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
