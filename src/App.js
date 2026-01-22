@@ -20,7 +20,15 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2500);
+    // respect user preference for reduced motion
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      setIsLoading(false);
+      return;
+    }
+
+    // shorter splash on mobile — doesn't block the user too long
+    const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -33,7 +41,7 @@ function App() {
           style={{ backgroundImage: `url(${logo})` }}
         >
           <div className="splash-overlay">
-            <h1 className="splash-text"> </h1>
+            <h1 className="splash-text">Glowify</h1>
           </div>
         </div>
       ) : (

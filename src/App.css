@@ -61,20 +61,22 @@ main {
 
 .splash-screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  inset: 0; /* shorthand for top/right/bottom/left */
+  /* prefer safe and dynamic viewport units to avoid mobile UI height issues */
+  height: 100svh;
+  height: 100dvh;
   height: 100vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  /* avoid fixed attachment which causes heavy re-paints on mobile */
+  background-attachment: scroll;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   z-index: 9999;
-  animation: fadeIn 0.8s ease-in-out;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 /* Optional overlay to make text pop */
@@ -85,18 +87,38 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  padding: 18px;
 }
 
-/* Brand text */
+/* scale text responsively */
 .splash-text {
-  font-size: 3rem;
+  font-size: clamp(1.6rem, 9.5vw, 2.4rem);
   color: #fff;
   font-weight: 900;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-  animation: textFade 2s ease-in-out;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.55);
+  animation: textFade 1s ease-in-out;
+  text-align: center;
+}
+
+/* reduce heavy background-attachment usage on mobile */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll !important;
+    background-position: center;
+  }
+
+  .splash-screen {
+    background-attachment: scroll;
+  }
+}
+
+/* prefer-reduced-motion: stop animations */
+@media (prefers-reduced-motion: reduce) {
+  .splash-screen { animation: none !important; }
+  .splash-text { animation: none !important; }
+  .fade-in { animation: none !important; }
 }
 
 /* === Animations === */
@@ -106,11 +128,16 @@ main {
 }
 
 @keyframes textFade {
-  0% { opacity: 0; transform: translateY(20px); }
+  0% { opacity: 0; transform: translateY(12px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
 /* === Fade-In Effect for App after Splash === */
 .fade-in {
-  animation: fadeIn 1.2s ease-in forwards;
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+/* iOS safe area support */
+:root {
+  padding-top: env(safe-area-inset-top);
 }

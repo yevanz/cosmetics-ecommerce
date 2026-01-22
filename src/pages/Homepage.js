@@ -19,18 +19,18 @@ const Homepage = () => {
   return (
     <div className="homepage">
       {/* === Hero Section (Gradient Background) === */}
-      <section className="hero-banner">
+      <section className="hero-banner" role="banner" aria-label="Hero banner">
         <div className="hero-content">
           <h1>Unleash Your <span>Glow</span></h1>
           <p>Exclusive beauty deals and top-rated cosmetics — just for you!</p>
-          <Link to="/products" className="hero-btn">Shop Now</Link>
+          <Link to="/products" className="hero-btn" aria-label="Shop Now — Glowify">Shop Now</Link>
         </div>
       </section>
 
       {/* === Header Section === */}
       <header className="homepage-header">
         <div className="logo-container">
-          <img src={logo} alt="Glowify Logo" className="glowify-logo" />
+          <img src={logo} alt="Glowify Logo" className="glowify-logo" loading="lazy" />
         </div>
         <div className="header-text">
           <h1>Welcome to <span>Glowify</span></h1>
@@ -55,7 +55,7 @@ const Homepage = () => {
           {featuredProducts.map(product => (
             <div key={product.id} className="product-card">
               <div className="discount-tag">-{product.discount}%</div>
-              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={product.name} loading="lazy" />
               <h3>{product.name}</h3>
               <p className="price">KSh {product.price * 100}</p>
               <Link to={`/product/${product.id}`} className="details-btn">View Details</Link>
@@ -68,4 +68,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-

@@ -1,50 +1,80 @@
 /* === Hero Banner (No image, gradient background) === */
 .hero-banner {
-    height: 70vh;
-    background: linear-gradient(135deg, #e91e63 0%, #ff9800 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    text-align: center;
-    position: relative;
+  /* use a responsive min-height instead of a fixed large vh so small phones don't get an oversized hero */
+  min-height: clamp(260px, 45vh, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  padding: 28px 16px;
+  background: linear-gradient(135deg, #e91e63 0%, #ff9800 100%);
+}
+
+.hero-content {
+  max-width: 700px;
+  padding: 8px;
+  animation: fadeIn 1s ease;
+}
+
+/* fluid font sizes so typography scales on small screens */
+.hero-content h1 {
+  font-size: clamp(1.6rem, 6.5vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.hero-content h1 span {
+  color: #fff200;
+}
+
+.hero-content p {
+  font-size: clamp(0.95rem, 3.25vw, 1.1rem);
+  margin-bottom: 18px;
+}
+
+/* Buttons — make them touch-friendly but compact on small screens */
+.hero-btn {
+  display: inline-block;
+  background: #fff;
+  color: #e91e63;
+  font-weight: 700;
+  padding: clamp(8px, 2.2vw, 12px) clamp(14px, 4vw, 28px);
+  border-radius: 28px;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.hero-btn:hover {
+  background-color: #ffe082;
+  color: #000;
+  transform: scale(1.03);
+}
+
+/* small-screen tweaks */
+@media (max-width: 420px) {
+  .hero-banner {
+    padding: 20px 12px;
+    min-height: 220px;
   }
-  
-  .hero-content {
-    max-width: 700px;
-    padding: 20px;
-    animation: fadeIn 2s ease;
-  }
-  
+
   .hero-content h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
   }
-  
-  .hero-content h1 span {
-    color: #fff200;
-  }
-  
+
   .hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 25px;
+    margin-bottom: 14px;
   }
-  
+
   .hero-btn {
-    display: inline-block;
-    background: #fff;
-    color: #e91e63;
-    font-weight: 700;
-    padding: 12px 28px;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    padding: 8px 14px;
+    border-radius: 22px;
   }
-  
-  .hero-btn:hover {
-    background-color: #ffe082;
-    color: #000;
-    transform: scale(1.05);
-  }
-  
+}
+
+/* prefer reduced motion: remove heavy animations */
+@media (prefers-reduced-motion: reduce) {
+  .hero-content { animation: none !important; }
+  .hero-btn { transition: none !important; }
+}
