@@ -1,17 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import LoadingSpinner from '../components/LoadingSpinner';
 import './Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
   const total = getCartTotal();
 
+  // Validate cart items
+  const validCartItems = cartItems.filter(item => item && item.id && item.price);
+
   return (
     <div className="cart-container">
       <h2 className="cart-title">Your Cart</h2>
       
-      {cartItems.length === 0 ? (
+      {validCartItems.length === 0 ? (
         <div className="cart-empty">
           <p>Your cart is empty.</p>
           <Link to="/products" className="btn-primary">Continue Shopping</Link>
@@ -19,7 +23,7 @@ const Cart = () => {
       ) : (
         <>
           <div className="cart-items">
-            {cartItems.map(item => (
+            {validCartItems.map(item => (
               <div key={item.id} className="cart-item">
                 <img
                   src={item.image || '/images/default-product.jpg'}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { getProductById, products } from '../data/products';
 import './Products.css';
 
@@ -10,30 +11,58 @@ const Products = () => {
   const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (id) {
-      const foundProduct = getProductById(id);
-      setProduct(foundProduct);
-      
-      // Get related products (same category, excluding current product)
-      if (foundProduct) {
-        const related = products
-          .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
-          .slice(0, 4);
-        setRelatedProducts(related);
+    setLoading(true);
+    setError(null);
+    
+    try {
+      if (id) {
+        const foundProduct = getProductById(id);
+        setProduct(foundProduct);
+        
+        // Get related products (same category, excluding current product)
+        if (foundProduct) {
+          const related = products
+            .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
+            .slice(0, 4);
+          setRelatedProducts(related);
+        } else {
+          setError('Product not found');
+        }
+      } else {
+        // If no ID, show all products
+        setRelatedProducts(products);
       }
-    } else {
-      // If no ID, show all products
-      setRelatedProducts(products);
+    } catch (err) {
+      setError(err.message || 'An error occurred');
+    } finally {
+      setLoading(false);
     }
   }, [id]);
+
+  if (loading) {
+    return <LoadingSpinner fullScreen />;
+  }
 
   if (id && !product) {
     return (
       <div className="products-container">
         <h1>Product not found</h1>
         <p>The product you're looking for doesn't exist.</p>
+        <Link to="/products" className="btn-primary">Browse All Products</Link>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="products-container">
+        <h1>Error</h1>
+        <p>{error}</p>
+        <Link to="/products" className="btn-primary">Go Back</Link>
       </div>
     );
   }

@@ -6,10 +6,16 @@ import './ProductCard.css';
 const ProductCard = ({ product, showDiscount = false }) => {
   const { addToCart } = useCart();
 
+  if (!product || !product.id) {
+    return null;
+  }
+
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart(product, 1);
+    if (product && product.id) {
+      addToCart(product, 1);
+    }
   };
 
   return (

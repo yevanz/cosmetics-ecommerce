@@ -42,18 +42,28 @@ export const products = [
 
 // Helper functions
 export const getProductById = (id) => {
-  return products.find(product => product.id === parseInt(id));
+  if (!id) return null;
+  const productId = typeof id === 'string' ? parseInt(id, 10) : id;
+  if (isNaN(productId)) return null;
+  return products.find(product => product.id === productId) || null;
 };
 
 export const getProductsByCategory = (category) => {
-  return products.filter(product => product.category.toLowerCase() === category.toLowerCase());
+  if (!category || typeof category !== 'string') return products;
+  const normalizedCategory = category.toLowerCase().trim();
+  if (!normalizedCategory) return products;
+  return products.filter(product => 
+    product.category && product.category.toLowerCase() === normalizedCategory
+  );
 };
 
 export const searchProducts = (searchTerm) => {
-  const term = searchTerm.toLowerCase();
+  if (!searchTerm || typeof searchTerm !== 'string') return products;
+  const term = searchTerm.toLowerCase().trim();
+  if (!term) return products;
   return products.filter(product =>
-    product.name.toLowerCase().includes(term) ||
-    product.category.toLowerCase().includes(term) ||
-    product.description.toLowerCase().includes(term)
+    (product.name && product.name.toLowerCase().includes(term)) ||
+    (product.category && product.category.toLowerCase().includes(term)) ||
+    (product.description && product.description.toLowerCase().includes(term))
   );
 };

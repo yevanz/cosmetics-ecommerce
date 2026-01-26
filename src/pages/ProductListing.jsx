@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useDebounce } from '../hooks';
 import ProductCard from '../components/ProductCard';
 import { products, getProductsByCategory, searchProducts } from '../data/products';
 import './ProductListing.css';
@@ -7,6 +8,7 @@ import './ProductListing.css';
 const ProductListing = () => {
   const [searchParams] = useSearchParams();
   const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 300);
   const category = searchParams.get('cat');
   const searchQuery = searchParams.get('search');
 
@@ -17,8 +19,8 @@ const ProductListing = () => {
     filteredProducts = getProductsByCategory(category);
   } else if (searchQuery) {
     filteredProducts = searchProducts(searchQuery);
-  } else if (search) {
-    filteredProducts = searchProducts(search);
+  } else if (debouncedSearch) {
+    filteredProducts = searchProducts(debouncedSearch);
   }
 
   return (

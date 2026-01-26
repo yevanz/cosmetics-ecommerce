@@ -6,23 +6,8 @@ import logo from '../assets/glowify.png';
 
 const Navbar = () => {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
   const { getCartCount } = useCart();
   const cartCount = getCartCount();
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 2000); // Splash duration
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Splash Screen
-  if (showSplash) {
-    return (
-      <div className="splash-screen">
-        <img src={logo} alt="Glowify Logo" className="splash-logo" />
-      </div>
-    );
-  }
 
   return (
     <header className="gb-header" role="banner" aria-label="Welcome header">

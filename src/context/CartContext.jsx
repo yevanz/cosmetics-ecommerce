@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { storage } from '../utils/storage';
+import { APP_CONFIG } from '../constants/config';
 
 const CartContext = createContext();
 
@@ -15,22 +17,28 @@ export const CartProvider = ({ children }) => {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      try {
-        setCartItems(JSON.parse(savedCart));
-      } catch (error) {
-        console.error('Error loading cart from localStorage:', error);
-      }
+    const savedCart = storage.get(APP_CONFIG.CART_STORAGE_KEY, []);
+    if (savedCart && Array.isArray(savedCart)) {
+      setCartItems(savedCart);
     }
   }, []);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
+    storage.set(APP_CONFIG.CART_STORAGE_KEY, cartItems);
   }, [cartItems]);
 
   const addToCart = (product, quantity = 1) => {
+    if (!product || !product.id) {
+      console.warn('Cannot add invalid product to cart');
+      return;
+    }
+
+    if (quantity <= 0) {
+      console.warn('Quantity must be greater than 0');
+      return;
+    }
+
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
       
@@ -51,6 +59,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = (productId, quantity) => {
+    if (!productId) {
+      console.warn('Product ID is required to update quantity');
+      return;
+    }
+
     if (quantity <= 0) {
       removeFromCart(productId);
       return;
