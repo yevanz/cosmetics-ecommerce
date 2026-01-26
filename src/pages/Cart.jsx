@@ -1,0 +1,76 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import './Cart.css';
+
+const Cart = () => {
+  const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
+  const total = getCartTotal();
+
+  return (
+    <div className="cart-container">
+      <h2 className="cart-title">Your Cart</h2>
+      
+      {cartItems.length === 0 ? (
+        <div className="cart-empty">
+          <p>Your cart is empty.</p>
+          <Link to="/products" className="btn-primary">Continue Shopping</Link>
+        </div>
+      ) : (
+        <>
+          <div className="cart-items">
+            {cartItems.map(item => (
+              <div key={item.id} className="cart-item">
+                <img
+                  src={item.image || '/images/default-product.jpg'}
+                  alt={item.name}
+                  className="cart-item-image"
+                />
+                <div className="cart-item-details">
+                  <h3 className="cart-item-name">{item.name}</h3>
+                  <p className="cart-item-price">${item.price}</p>
+                </div>
+                <div className="cart-item-controls">
+                  <button
+                    className="quantity-btn"
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    aria-label="Decrease quantity"
+                  >
+                    -
+                  </button>
+                  <span className="quantity">{item.quantity}</span>
+                  <button
+                    className="quantity-btn"
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    aria-label="Increase quantity"
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="cart-item-total">
+                  <p>${(item.price * item.quantity).toFixed(2)}</p>
+                </div>
+                <button
+                  className="remove-btn"
+                  onClick={() => removeFromCart(item.id)}
+                  aria-label="Remove item"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+          
+          <div className="cart-summary">
+            <div className="cart-total">
+              <h3>Total: ${total.toFixed(2)}</h3>
+            </div>
+            <Link to="/checkout" className="btn-primary checkout-btn">Checkout</Link>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Cart;

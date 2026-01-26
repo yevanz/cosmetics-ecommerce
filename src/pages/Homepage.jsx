@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
+import { products } from '../data/products';
 import './Homepage.css';
-import logo from '../assets/back.png'; 
+import logo from '../assets/back.png';
 
 const Homepage = () => {
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-
-  useEffect(() => {
-    // Placeholder — fetch from backend later
-    setFeaturedProducts([
-      { id: 1, name: 'Rose Lip Balm', price: 15, image: 'https://placehold.co/300x300?text=Lip+Balm', discount: 20 },
-      { id: 2, name: 'Hydrating Serum', price: 25, image: 'https://placehold.co/300x300?text=Serum', discount: 35 },
-      { id: 3, name: 'Glow Foundation', price: 30, image: 'https://placehold.co/300x300?text=Foundation', discount: 40 },
-      { id: 4, name: 'Matte Lipstick', price: 18, image: 'https://placehold.co/300x300?text=Lipstick', discount: 25 },
-    ]);
-  }, []);
+  // Get featured products (first 4 products)
+  const featuredProducts = products.slice(0, 4);
 
   return (
     <div className="homepage">
@@ -53,13 +46,7 @@ const Homepage = () => {
         <h2>✨ Featured Products</h2>
         <div className="product-grid">
           {featuredProducts.map(product => (
-            <div key={product.id} className="product-card">
-              <div className="discount-tag">-{product.discount}%</div>
-              <img src={product.image} alt={product.name} loading="lazy" />
-              <h3>{product.name}</h3>
-              <p className="price">KSh {product.price * 100}</p>
-              <Link to={`/product/${product.id}`} className="details-btn">View Details</Link>
-            </div>
+            <ProductCard key={product.id} product={product} showDiscount={true} />
           ))}
         </div>
       </section>
